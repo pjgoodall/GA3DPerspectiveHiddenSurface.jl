@@ -2,4 +2,5 @@
 GeometricMatrixAlgebras = "6cba012c-fa21-4645-b88a-8002027d6abd"
 Pluto = "c3e4b0f8-55cb-11ea-2926-15256bba5781"
 PlutoUI = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
+Primes = "27ebfcd6-29c5-5fa9-bf4b-fb8fc14df3ae"
 PyCall = "438e738f-606a-5dbb-bf0a-cddfbfd45ab0"
