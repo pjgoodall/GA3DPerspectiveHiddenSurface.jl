@@ -17,9 +17,9 @@ version = "1.5.2"
 
 [[Configurations]]
 deps = ["ExproniconLite", "OrderedCollections", "TOML"]
-git-tree-sha1 = "41d153a50b001a7c534f19e263540cca1a4e7cf3"
+git-tree-sha1 = "79e812c535bb9780ba00f3acba526bde5652eb13"
 uuid = "5218b696-f38b-4ac9-8b61-a12ec717816d"
-version = "0.16.4"
+version = "0.16.6"
 
 [[DataAPI]]
 git-tree-sha1 = "cc70b17275652eb47bc9e5f81635981f13cea5c8"
@@ -44,9 +44,9 @@ deps = ["ArgTools", "LibCURL", "NetworkOptions"]
 uuid = "f43a241f-c20a-4ad4-852c-f6b1247861c6"
 
 [[ExproniconLite]]
-git-tree-sha1 = "45b421f664eba4cd4bed8e5e706f69f2ccd8fcb3"
+git-tree-sha1 = "c04d5c3442126d75ee4500aa6b0e402cae3bf6ac"
 uuid = "55351af7-c7e9-48d6-89ff-24e801d99491"
-version = "0.6.10"
+version = "0.6.12"
 
 [[FileWatching]]
 uuid = "7b1f6079-737a-58dc-b8bc-7a2ca5c1b5ee"
@@ -59,9 +59,9 @@ version = "0.4.3"
 
 [[GeometricMatrixAlgebras]]
 deps = ["LinearAlgebra", "StaticArrays"]
-git-tree-sha1 = "d5da072149a7960048c356a9f6a2094e26dfdb5b"
+git-tree-sha1 = "73d50c3ddb5182a73e4c52cb82b1cc22562d73ac"
 repo-rev = "master"
-repo-url = "https://github.com/MasonProtter/GeometricMatricAlgebras.jl"
+repo-url = "https://github.com/MasonProtter/GeometricMatrixAlgebras.jl"
 uuid = "6cba012c-fa21-4645-b88a-8002027d6abd"
 version = "0.1.0"
 
