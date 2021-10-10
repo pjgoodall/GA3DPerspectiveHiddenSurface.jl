@@ -8,7 +8,6 @@ using InteractiveUtils
 begin
 	using Pkg
 	Pkg.activate()
-	# uncomment the following cell to download this package
 	Pkg.add(url="https://github.com/MasonProtter/GeometricMatricAlgebras.jl")
 	Pkg.add("LinearAlgebra")
 end
@@ -21,58 +20,49 @@ begin
 end
 
 # ╔═╡ 0dad1f00-6bef-4121-b10d-11a3998d623c
-md" from
+md"
 A brave attempt to try *8.2. “Meshes” in 2D: Polylines* from: 
 `Hughes, John F. Computer Graphics: Principles and Practice. Third edition. Upper Saddle River, New Jersey: Addison-Wesley, 2014.`
 
 "
 
+# ╔═╡ ae7f07a0-e153-415f-97aa-940c01bdc95d
+begin
+	ℐ = σ12 = σ1 * σ2
+	basis2d = (; 𝟙, σ1, σ2, ℐ)
+end
+
 # ╔═╡ e58ff565-9720-4f8d-9611-7e47b8b5228d
 vertices = [0 0; .5 0; 1.5 1; 0 2; 3 0; 4 0]
 
 # ╔═╡ 0cda13f2-9d71-4460-8df1-0037b384cc98
-edges = [1 2; 2 3; 3 4; 4 1; 5 6]
-
-# ╔═╡ aa670c5b-bf23-452d-a8a5-48c358ba8aa3
-basis2D =  [σ1 σ2] # [13 19]
+edges = [1 2; 2 3; 3 4; 4 1; 5 6];
 
 # ╔═╡ a4dfd269-4a80-4734-98d5-c3a55f95f382
+vertices * [3 5]'
 
+# ╔═╡ 1e0443a3-788f-41a7-8623-9b451c924ce4
+[7 11] * [3 5]'
 
-# ╔═╡ cf978b50-ef68-4360-9626-8dc970bd1648
-v = 3 * σ1 + 5 * σ2
+# ╔═╡ 79def966-e323-4ad7-8768-80148509b788
+7 * σ1 + 11 * σ2
 
-# ╔═╡ 3651651c-8e12-4e9a-8a89-7d15f81c6ec5
-v * 2
+# ╔═╡ c0b77deb-82f0-46b9-a7ef-305c9f26561c
+[7 11] * [σ1 σ2]'
 
-# ╔═╡ 4875fa97-868e-46bd-b7c0-8d3e7bc218c3
-a = [1 1;
-	1 1]
-
-# ╔═╡ a2faffe5-4612-487c-bb46-0319ea67adbd
-p = [7 11]
-
-# ╔═╡ aaf62a16-fbb2-49e0-8865-15eff20861b6
-[1 1] * [σ1 σ2]'
-
-# ╔═╡ 92bea435-e988-4b52-84fe-a0ad89dda64b
-[1 1] * [3 5]'
-
-# ╔═╡ 98abef19-a871-4aa8-88e5-2e562fee67c6
-basis2D .+ 1
+# ╔═╡ 465eab2f-bcab-495a-a680-634481caaf43
+# This was the operation I wanted be able to do. Make an array of vertices
+# vertices * [σ1 σ2]'
 
 # ╔═╡ Cell order:
 # ╠═7e3bed62-28b7-11ec-0bfa-e10cc79a2bac
 # ╠═7abe0028-ddbf-42e1-b678-a5ac02f86364
 # ╟─0dad1f00-6bef-4121-b10d-11a3998d623c
+# ╠═ae7f07a0-e153-415f-97aa-940c01bdc95d
 # ╠═e58ff565-9720-4f8d-9611-7e47b8b5228d
 # ╠═0cda13f2-9d71-4460-8df1-0037b384cc98
-# ╠═aa670c5b-bf23-452d-a8a5-48c358ba8aa3
 # ╠═a4dfd269-4a80-4734-98d5-c3a55f95f382
-# ╠═cf978b50-ef68-4360-9626-8dc970bd1648
-# ╠═3651651c-8e12-4e9a-8a89-7d15f81c6ec5
-# ╠═4875fa97-868e-46bd-b7c0-8d3e7bc218c3
-# ╠═a2faffe5-4612-487c-bb46-0319ea67adbd
-# ╠═aaf62a16-fbb2-49e0-8865-15eff20861b6
-# ╠═92bea435-e988-4b52-84fe-a0ad89dda64b
-# ╠═98abef19-a871-4aa8-88e5-2e562fee67c6
+# ╠═1e0443a3-788f-41a7-8623-9b451c924ce4
+# ╠═79def966-e323-4ad7-8768-80148509b788
+# ╠═c0b77deb-82f0-46b9-a7ef-305c9f26561c
+# ╠═465eab2f-bcab-495a-a680-634481caaf43
