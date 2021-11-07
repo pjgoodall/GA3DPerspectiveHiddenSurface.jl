@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.16.1
+# v0.16.3
 
 using Markdown
 using InteractiveUtils
@@ -8,7 +8,7 @@ using InteractiveUtils
 begin
 	using Pkg
 	Pkg.activate()
-	Pkg.add(url="https://github.com/MasonProtter/GeometricMatricAlgebras.jl")
+	# Pkg.add(path="~/.julia/dev/GeometricMatrixAlgebras")
 	Pkg.add("LinearAlgebra")
 end
 

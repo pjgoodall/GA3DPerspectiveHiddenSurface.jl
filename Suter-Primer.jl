@@ -1,3 +1,111 @@
+### A Pluto.jl notebook ###
+# v0.16.4
+
+using Markdown
+using InteractiveUtils
+
+# ╔═╡ e98273e1-e6cc-4584-8893-78c8ef6ffc23
+using GeometricMatrixAlgebras
+
+# ╔═╡ 4405d95c-45ed-4d9d-9600-8df0200e32ed
+using GeometricMatrixAlgebras.Basis3D
+
+# ╔═╡ a8d43725-23a3-4eed-aa37-211c7142d8fc
+using GeometricMatrixAlgebras.StaticArrays
+
+# ╔═╡ 73bd6f39-85a4-4d8f-a343-1c72b7c89315
+using Symbolics
+
+# ╔═╡ 793fbf04-351f-11ec-0af8-83e524795fa2
+begin
+	#using Pkg
+	# Pkg.activate(".")
+	# uncomment the following cell to download this package
+	# Pkg.add(url="https://github.com/MasonProtter/GeometricMatrixAlgebras.jl")
+end
+
+# ╔═╡ fd8106ba-1a50-4bd3-98d4-7081bed76f7d
+names(GeometricMatrixAlgebras)
+
+# ╔═╡ dc55b3d4-6311-4eee-804e-a48895e1acbc
+names(GeometricMatrixAlgebras.Basis3D)
+
+# ╔═╡ b2b3f59a-c39f-4f28-84b9-46f831c4ef73
+σ1 ^2
+
+# ╔═╡ ae6f3e44-c1b7-4fbd-bd49-b8ef2633af66
+σ2 ^2
+
+# ╔═╡ 0b798a12-1cf6-441c-b8aa-ea0fdece56d2
+σ3 ^2
+
+# ╔═╡ 06a42fc4-30e4-4791-b2f9-ec758640e9b3
+σ12 ^2
+
+# ╔═╡ a4a7a85b-c275-4119-ae8a-bff708fc0824
+σ23 ^ 2
+
+# ╔═╡ db153236-085b-4f90-980f-fa3f4c847da3
+σ31 ^2
+
+# ╔═╡ d7f405a5-7c09-4e11-94f9-0af47a2f3d41
+@generated function basis2d()
+	𝟙 = [1 0 
+		 0 1]
+	e1 = [0 1
+		  1 0]
+	e2 = [1  0
+		  0 -1]
+	
+	(;𝟙, e1, e2, e12 = e1*e2)
+end
+
+# ╔═╡ 2fe41243-176c-48b7-bc4c-88ff76644615
+e1 = MultiVector{basis2d}(basis2d().e1)
+
+# ╔═╡ aeb93f9e-0617-450e-b115-b0d68ab25a7f
+e2 = MultiVector{basis2d}(basis2d().e2)
+
+# ╔═╡ a0dd8fa3-46a9-49cb-8ccb-fd355b5ea633
+(e1 * e2)^2 
+
+# ╔═╡ aff30765-cc3c-45a3-b371-766cd48571fb
+typeof(𝟙)
+
+# ╔═╡ 754e5dbd-102d-4be5-ab78-484f1781852c
+
+
+# ╔═╡ 20cac234-18a2-4dd4-97c6-fca74234788e
+fieldnames(typeof(𝟙))
+
+# ╔═╡ 46e43369-9624-437c-9f0f-9d2ba020596d
+𝟙.M
+
+# ╔═╡ d783739a-d0df-4cdb-bdcd-15c1203bb517
+b2d = [e1 e2]
+
+# ╔═╡ 2f8484ef-e015-470e-a5e4-74c082e050eb
+@variables α1 α2 β1 β2
+
+# ╔═╡ cba9937d-27d5-4418-9d06-fdd1833abde0
+a = α1 * e1 + α2 * e2
+
+# ╔═╡ 50b9a339-1783-4846-b611-6e75d5ff23ba
+
+
+# ╔═╡ 00000000-0000-0000-0000-000000000001
+PLUTO_PROJECT_TOML_CONTENTS = """
+[deps]
+GeometricMatrixAlgebras = "6cba012c-fa21-4645-b88a-8002027d6abd"
+Symbolics = "0c5d862f-8b57-4792-8d23-62f2024744c7"
+
+[compat]
+GeometricMatrixAlgebras = "~0.2.0"
+Symbolics = "~3.5.0"
+"""
+
+# ╔═╡ 00000000-0000-0000-0000-000000000002
+PLUTO_MANIFEST_TOML_CONTENTS = """
 # This file is machine-generated - editing it directly is not advised
 
 [[AbstractTrees]]
@@ -31,12 +139,6 @@ git-tree-sha1 = "0541d306de71e267c1a724f84d44bbc981f287b4"
 uuid = "d360d2e6-b24c-11e9-a2a3-2a2ae2dbcce4"
 version = "1.10.2"
 
-[[CodeTracking]]
-deps = ["InteractiveUtils", "UUIDs"]
-git-tree-sha1 = "9aa8a5ebb6b5bf469a7e0e2b5202cf6f8c291104"
-uuid = "da1fd8a2-8d9e-5ec2-8556-3022fb5608a2"
-version = "1.0.6"
-
 [[Combinatorics]]
 git-tree-sha1 = "08c8b6831dc00bfea825826be0bc8336fc369860"
 uuid = "861a8166-3701-5b0c-9a16-15d98fcdc6aa"
@@ -62,28 +164,11 @@ git-tree-sha1 = "d5b014b216dc891e81fea299638e4c10c657b582"
 uuid = "b152e2b5-7a66-4b01-a709-34e65c35f657"
 version = "0.1.2"
 
-[[Conda]]
-deps = ["JSON", "VersionParsing"]
-git-tree-sha1 = "299304989a5e6473d985212c28928899c74e9421"
-uuid = "8f4d0f93-b110-5947-807f-2305c1781a2d"
-version = "1.5.2"
-
-[[Configurations]]
-deps = ["ExproniconLite", "OrderedCollections", "TOML"]
-git-tree-sha1 = "79e812c535bb9780ba00f3acba526bde5652eb13"
-uuid = "5218b696-f38b-4ac9-8b61-a12ec717816d"
-version = "0.16.6"
-
 [[ConstructionBase]]
 deps = ["LinearAlgebra"]
 git-tree-sha1 = "f74e9d5388b8620b4cee35d4c5a618dd4dc547f4"
 uuid = "187b0558-2788-49d3-abe0-74a17ed4e7c9"
 version = "1.3.0"
-
-[[Crayons]]
-git-tree-sha1 = "3f71217b538d7aaee0b69ab47d9b7724ca8afa0d"
-uuid = "a8cc5b0e-0ffa-5ad4-8c14-923d3ee1735f"
-version = "4.0.4"
 
 [[DataAPI]]
 git-tree-sha1 = "cc70b17275652eb47bc9e5f81635981f13cea5c8"
@@ -158,14 +243,6 @@ git-tree-sha1 = "b7e3d17636b348f005f11040025ae8c6f645fe92"
 uuid = "e2ba6199-217a-4e67-a87a-7c52f15ade04"
 version = "0.1.6"
 
-[[ExproniconLite]]
-git-tree-sha1 = "c04d5c3442126d75ee4500aa6b0e402cae3bf6ac"
-uuid = "55351af7-c7e9-48d6-89ff-24e801d99491"
-version = "0.6.12"
-
-[[FileWatching]]
-uuid = "7b1f6079-737a-58dc-b8bc-7a2ca5c1b5ee"
-
 [[FillArrays]]
 deps = ["LinearAlgebra", "Random", "SparseArrays", "Statistics"]
 git-tree-sha1 = "8756f9935b7ccc9064c6eef0bff0ad643df733a3"
@@ -182,12 +259,6 @@ version = "0.4.2"
 deps = ["Random"]
 uuid = "9fa8497b-333b-5362-9e8d-4d0656e87820"
 
-[[FuzzyCompletions]]
-deps = ["REPL"]
-git-tree-sha1 = "2cc2791b324e8ed387a91d7226d17be754e9de61"
-uuid = "fb4132e2-a121-4a70-b8a1-d5b831dcdcc2"
-version = "0.4.3"
-
 [[GeometricMatrixAlgebras]]
 deps = ["LinearAlgebra", "StaticArrays"]
 git-tree-sha1 = "7cde61d421f137161c46397972dfea52c46f5d6b"
@@ -196,45 +267,10 @@ repo-url = "https://github.com/MasonProtter/GeometricMatrixAlgebras.jl"
 uuid = "6cba012c-fa21-4645-b88a-8002027d6abd"
 version = "0.2.0"
 
-[[HTTP]]
-deps = ["Base64", "Dates", "IniFile", "Logging", "MbedTLS", "NetworkOptions", "Sockets", "URIs"]
-git-tree-sha1 = "14eece7a3308b4d8be910e265c724a6ba51a9798"
-uuid = "cd3eb016-35fb-5094-929b-558a96fad6f3"
-version = "0.9.16"
-
-[[Hyperscript]]
-deps = ["Test"]
-git-tree-sha1 = "8d511d5b81240fc8e6802386302675bdf47737b9"
-uuid = "47d2ed2b-36de-50cf-bf87-49c2cf4b8b91"
-version = "0.0.4"
-
-[[HypertextLiteral]]
-git-tree-sha1 = "5efcf53d798efede8fee5b2c8b09284be359bf24"
-uuid = "ac1192a8-f4b3-4bfe-ba22-af5b92cd3ab2"
-version = "0.9.2"
-
-[[IJulia]]
-deps = ["Base64", "Conda", "Dates", "InteractiveUtils", "JSON", "Libdl", "Markdown", "MbedTLS", "Pkg", "Printf", "REPL", "Random", "SoftGlobalScope", "Test", "UUIDs", "ZMQ"]
-git-tree-sha1 = "d8b9c31196e1dd92181cd0f5760ca2d2ffb4ac0f"
-uuid = "7073ff75-c697-5162-941a-fcdaad2a7d2a"
-version = "1.23.2"
-
-[[IOCapture]]
-deps = ["Logging", "Random"]
-git-tree-sha1 = "f7be53659ab06ddc986428d3a9dcc95f6fa6705a"
-uuid = "b5f81e59-6552-4d32-b1f0-c071b021bf89"
-version = "0.2.2"
-
 [[IfElse]]
 git-tree-sha1 = "28e837ff3e7a6c3cdb252ce49fb412c8eb3caeef"
 uuid = "615f187c-cbe4-4ef1-ba3b-2fcf58d6d173"
 version = "0.1.0"
-
-[[IniFile]]
-deps = ["Test"]
-git-tree-sha1 = "098e4d2c533924c921f9f9847274f2ad89e018b8"
-uuid = "83e8ac13-25f8-5344-8a64-a9f2b223428f"
-version = "0.5.0"
 
 [[InteractiveUtils]]
 deps = ["Markdown"]
@@ -267,18 +303,6 @@ deps = ["Preferences"]
 git-tree-sha1 = "642a199af8b68253517b80bd3bfd17eb4e84df6e"
 uuid = "692b3bcd-3c85-4b1f-b108-f13ce0eb3210"
 version = "1.3.0"
-
-[[JSON]]
-deps = ["Dates", "Mmap", "Parsers", "Unicode"]
-git-tree-sha1 = "8076680b162ada2a031f707ac7b4953e30667a37"
-uuid = "682c06a0-de6a-54ab-a142-c8b1cf79cde6"
-version = "0.21.2"
-
-[[JuliaInterpreter]]
-deps = ["CodeTracking", "InteractiveUtils", "Random", "UUIDs"]
-git-tree-sha1 = "e273807f38074f033d94207a201e6e827d8417db"
-uuid = "aa1ae85d-cabe-5617-a682-6adf51b2e16a"
-version = "0.8.21"
 
 [[LaTeXStrings]]
 git-tree-sha1 = "c7f1c695e06c01b95a67f0cd1d34994f3e7db104"
@@ -329,12 +353,6 @@ version = "0.3.4"
 [[Logging]]
 uuid = "56ddb016-857b-54e1-b83d-db4d58db5568"
 
-[[LoweredCodeUtils]]
-deps = ["JuliaInterpreter"]
-git-tree-sha1 = "491a883c4fef1103077a7f648961adbf9c8dd933"
-uuid = "6f1432cf-f94c-5a45-995e-cdbf5db27b0b"
-version = "2.1.2"
-
 [[MacroTools]]
 deps = ["Markdown", "Random"]
 git-tree-sha1 = "5a5bc6bf062f0f95e62d0fe0a2d99699fed82dd9"
@@ -344,12 +362,6 @@ version = "0.5.8"
 [[Markdown]]
 deps = ["Base64"]
 uuid = "d6f4376e-aef5-505a-96c1-9c027394607a"
-
-[[MbedTLS]]
-deps = ["Dates", "MbedTLS_jll", "Random", "Sockets"]
-git-tree-sha1 = "1c38e51c3d08ef2278062ebceade0e46cefc96fe"
-uuid = "739be429-bea8-5141-9913-cc70e7f3736d"
-version = "1.0.3"
 
 [[MbedTLS_jll]]
 deps = ["Artifacts", "Libdl"]
@@ -366,12 +378,6 @@ uuid = "a63ad114-7e13-5084-954f-fe012c677804"
 
 [[MozillaCACerts_jll]]
 uuid = "14a3606d-f60d-562e-9121-12d972cd8159"
-
-[[MsgPack]]
-deps = ["Serialization"]
-git-tree-sha1 = "a8cbf066b54d793b9a48c5daa5d586cf2b5bd43d"
-uuid = "99f44e22-a591-53d1-9472-aa23ef4bd671"
-version = "1.1.0"
 
 [[MultivariatePolynomials]]
 deps = ["DataStructures", "LinearAlgebra", "MutableArithmetics"]
@@ -414,27 +420,9 @@ git-tree-sha1 = "4dd403333bcf0909341cfe57ec115152f937d7d8"
 uuid = "90014a1f-27ba-587c-ab20-58faa44d9150"
 version = "0.11.1"
 
-[[Parsers]]
-deps = ["Dates"]
-git-tree-sha1 = "f19e978f81eca5fd7620650d7dbea58f825802ee"
-uuid = "69de0a69-1ddd-5017-9359-2bf0b02dc9f0"
-version = "2.1.0"
-
 [[Pkg]]
 deps = ["Artifacts", "Dates", "Downloads", "LibGit2", "Libdl", "Logging", "Markdown", "Printf", "REPL", "Random", "SHA", "Serialization", "TOML", "Tar", "UUIDs", "p7zip_jll"]
 uuid = "44cfe95a-1eb2-52ea-b672-e2afdf69b78f"
-
-[[Pluto]]
-deps = ["Base64", "Configurations", "Dates", "Distributed", "FileWatching", "FuzzyCompletions", "HTTP", "InteractiveUtils", "Logging", "Markdown", "MsgPack", "Pkg", "REPL", "Sockets", "TableIOInterface", "Tables", "UUIDs"]
-git-tree-sha1 = "7b4eb6b87276b7ee6604cd9ababf68ba659cfacb"
-uuid = "c3e4b0f8-55cb-11ea-2926-15256bba5781"
-version = "0.16.4"
-
-[[PlutoUI]]
-deps = ["Base64", "Dates", "Hyperscript", "HypertextLiteral", "IOCapture", "InteractiveUtils", "JSON", "Logging", "Markdown", "Random", "Reexport", "UUIDs"]
-git-tree-sha1 = "4c8a7d080daca18545c56f1cac28710c362478f3"
-uuid = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
-version = "0.7.16"
 
 [[Preferences]]
 deps = ["TOML"]
@@ -442,21 +430,9 @@ git-tree-sha1 = "00cfd92944ca9c760982747e9a1d0d5d86ab1e5a"
 uuid = "21216c6a-2e73-6563-6e65-726566657250"
 version = "1.2.2"
 
-[[PrettyTables]]
-deps = ["Crayons", "Formatting", "Markdown", "Reexport", "Tables"]
-git-tree-sha1 = "d940010be611ee9d67064fe559edbb305f8cc0eb"
-uuid = "08abe8d2-0d0c-5749-adfa-8a2ac140af0d"
-version = "1.2.3"
-
 [[Printf]]
 deps = ["Unicode"]
 uuid = "de0858da-6303-5e67-8744-51eddeeeb8d7"
-
-[[PyCall]]
-deps = ["Conda", "Dates", "Libdl", "LinearAlgebra", "MacroTools", "Serialization", "VersionParsing"]
-git-tree-sha1 = "4ba3651d33ef76e24fef6a598b63ffd1c5e1cd17"
-uuid = "438e738f-606a-5dbb-bf0a-cddfbfd45ab0"
-version = "1.92.5"
 
 [[QuadGK]]
 deps = ["DataStructures", "LinearAlgebra"]
@@ -493,12 +469,6 @@ deps = ["UUIDs"]
 git-tree-sha1 = "4036a3bd08ac7e968e27c203d45f5fff15020621"
 uuid = "ae029012-a4dd-5104-9daa-d747884805df"
 version = "1.1.3"
-
-[[Revise]]
-deps = ["CodeTracking", "Distributed", "FileWatching", "JuliaInterpreter", "LibGit2", "LoweredCodeUtils", "OrderedCollections", "Pkg", "REPL", "Requires", "UUIDs", "Unicode"]
-git-tree-sha1 = "41deb3df28ecf75307b6e492a738821b031f8425"
-uuid = "295af30f-e4ad-537b-8983-00126c2a3abe"
-version = "3.1.20"
 
 [[Rmath]]
 deps = ["Random", "Rmath_jll"]
@@ -542,12 +512,6 @@ uuid = "1a1011a3-84de-559e-8e89-a11a2f7dc383"
 
 [[Sockets]]
 uuid = "6462fe0b-24de-5631-8697-dd941f90decc"
-
-[[SoftGlobalScope]]
-deps = ["REPL"]
-git-tree-sha1 = "986ec2b6162ccb95de5892ed17832f95badf770c"
-uuid = "b85f4697-e234-5449-a836-ec8e2f98b302"
-version = "1.1.0"
 
 [[SortingAlgorithms]]
 deps = ["DataStructures"]
@@ -618,11 +582,6 @@ version = "3.5.0"
 deps = ["Dates"]
 uuid = "fa267f1f-6049-4f14-aa54-33bafae1ed76"
 
-[[TableIOInterface]]
-git-tree-sha1 = "9a0d3ab8afd14f33a35af7391491ff3104401a35"
-uuid = "d1efa939-5518-4425-949f-ab857e148477"
-version = "0.1.6"
-
 [[TableTraits]]
 deps = ["IteratorInterfaceExtensions"]
 git-tree-sha1 = "c06b2f539df1c6efa794486abfb6ed2022561a39"
@@ -660,34 +619,12 @@ git-tree-sha1 = "8d0d7a3fe2f30d6a7f833a5f19f7c7a5b396eae6"
 uuid = "a2a6695c-b41b-5b7d-aed9-dbfdeacea5d7"
 version = "0.3.0"
 
-[[URIs]]
-git-tree-sha1 = "97bbe755a53fe859669cd907f2d96aee8d2c1355"
-uuid = "5c2747f8-b7ea-4ff2-ba2e-563bfd36b1d4"
-version = "1.3.0"
-
 [[UUIDs]]
 deps = ["Random", "SHA"]
 uuid = "cf7118a7-6976-5b1a-9a39-7adc72f591a4"
 
 [[Unicode]]
 uuid = "4ec0a83e-493e-50e2-b9ac-8f72acf5a8f5"
-
-[[VersionParsing]]
-git-tree-sha1 = "e575cf85535c7c3292b4d89d89cc29e8c3098e47"
-uuid = "81def892-9a0e-5fdd-b105-ffc91e053289"
-version = "1.2.1"
-
-[[ZMQ]]
-deps = ["FileWatching", "Sockets", "ZeroMQ_jll"]
-git-tree-sha1 = "fc68e8a3719166950a0f3e390a14c7302c48f8de"
-uuid = "c2297ded-f4af-51ae-bb23-16f91089e4e1"
-version = "1.2.1"
-
-[[ZeroMQ_jll]]
-deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg", "libsodium_jll"]
-git-tree-sha1 = "fe5c65a526f066fb3000da137d5785d9649a8a47"
-uuid = "8f1865be-045e-5c20-9c9f-bfbfb0764568"
-version = "4.3.4+0"
 
 [[Zlib_jll]]
 deps = ["Libdl"]
@@ -699,12 +636,6 @@ git-tree-sha1 = "8c1a8e4dfacb1fd631745552c8db35d0deb09ea0"
 uuid = "700de1a5-db45-46bc-99cf-38207098b444"
 version = "0.2.2"
 
-[[libsodium_jll]]
-deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
-git-tree-sha1 = "848ab3d00fe39d6fbc2a8641048f8f272af1c51e"
-uuid = "a9144af2-ca23-56d9-984f-0d03f7b5ccf8"
-version = "1.0.20+0"
-
 [[nghttp2_jll]]
 deps = ["Artifacts", "Libdl"]
 uuid = "8e850ede-7688-5339-a07c-302acd2aaf8d"
@@ -712,3 +643,33 @@ uuid = "8e850ede-7688-5339-a07c-302acd2aaf8d"
 [[p7zip_jll]]
 deps = ["Artifacts", "Libdl"]
 uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
+"""
+
+# ╔═╡ Cell order:
+# ╠═793fbf04-351f-11ec-0af8-83e524795fa2
+# ╠═e98273e1-e6cc-4584-8893-78c8ef6ffc23
+# ╠═fd8106ba-1a50-4bd3-98d4-7081bed76f7d
+# ╠═4405d95c-45ed-4d9d-9600-8df0200e32ed
+# ╠═dc55b3d4-6311-4eee-804e-a48895e1acbc
+# ╠═b2b3f59a-c39f-4f28-84b9-46f831c4ef73
+# ╠═ae6f3e44-c1b7-4fbd-bd49-b8ef2633af66
+# ╠═0b798a12-1cf6-441c-b8aa-ea0fdece56d2
+# ╠═06a42fc4-30e4-4791-b2f9-ec758640e9b3
+# ╠═a4a7a85b-c275-4119-ae8a-bff708fc0824
+# ╠═db153236-085b-4f90-980f-fa3f4c847da3
+# ╠═a8d43725-23a3-4eed-aa37-211c7142d8fc
+# ╠═d7f405a5-7c09-4e11-94f9-0af47a2f3d41
+# ╠═2fe41243-176c-48b7-bc4c-88ff76644615
+# ╠═aeb93f9e-0617-450e-b115-b0d68ab25a7f
+# ╠═a0dd8fa3-46a9-49cb-8ccb-fd355b5ea633
+# ╠═aff30765-cc3c-45a3-b371-766cd48571fb
+# ╠═754e5dbd-102d-4be5-ab78-484f1781852c
+# ╠═20cac234-18a2-4dd4-97c6-fca74234788e
+# ╠═46e43369-9624-437c-9f0f-9d2ba020596d
+# ╠═d783739a-d0df-4cdb-bdcd-15c1203bb517
+# ╠═73bd6f39-85a4-4d8f-a343-1c72b7c89315
+# ╠═2f8484ef-e015-470e-a5e4-74c082e050eb
+# ╠═cba9937d-27d5-4418-9d06-fdd1833abde0
+# ╠═50b9a339-1783-4846-b611-6e75d5ff23ba
+# ╟─00000000-0000-0000-0000-000000000001
+# ╟─00000000-0000-0000-0000-000000000002
